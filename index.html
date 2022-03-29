@@ -147,8 +147,29 @@
             #slider{width:90%;}
         }
     </style>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>    
+      var player;    
+      function onYouTubeIframeAPIReady(){    
+        player = new YT.Player('player',{    
+          width:'100%',    
+          videoId:'hfWZ1DlLnqU',    
+          playerVars:{'autoplay':1,'playsinline':1,'loop':1,'playlist':'hfWZ1DlLnqU'},    
+          events:{ 'onReady':onPlayerReady }    
+        });    
+      }
+    
+      function onPlayerReady(e){    
+        e.target.mute();    
+        e.target.playVideo();    
+      }
+    
+    </script>
+ 
     <script>
-        $( document ).ready( function() {
+        $( document ).ready( function() {           
+
           $( '.slider' ).slick( {
             autoplay: true,
             autoplaySpeed: 1000,
@@ -175,14 +196,22 @@
 
 
           $('div[name="playCover"]').click(function(){
-                var playCoverIndex = $('div[name="playCover"]').index(this),
-                playurl = '',
-                playHtml = '';
-                if(playCoverIndex == 0 ) {
-                    playurl = 'https://www.youtube.com/embed/gS65eGciMfc?autoplay=1&controls=0&showinfo=0&rel=0&mute=1';
-                }
-                playHtml += '<iframe width="100%" height="250" src="' + playurl +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                $(this).find('.yt_box').html(playHtml);
+                var player2;
+                player2 = new YT.Player('player2',{    
+                width:'100%',    
+                videoId:'gS65eGciMfc',    
+                playerVars:{'autoplay':0,'playsinline':1,'loop':1,'playlist':'gS65eGciMfc'},    
+                events:{ 'onReady':onPlayerReady }    
+                });     
+
+                // var playCoverIndex = $('div[name="playCover"]').index(this),
+                // playurl = '',
+                // playHtml = '';
+                // if(playCoverIndex == 0 ) {
+                //     playurl = 'https://www.youtube.com/embed/gS65eGciMfc?autoplay=1&controls=0&showinfo=0&rel=0&mute=1';
+                // }
+                // playHtml += '<iframe width="100%" height="250" src="' + playurl +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                // $(this).find('.yt_box').html(playHtml);
             });
 
         } );
@@ -207,7 +236,8 @@
     <div id="video-box">
         <div id="video" class="container-fluid video-background">
             <div class="video-foreground">
-                <iframe src="https://www.youtube.com/embed/hfWZ1DlLnqU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=hfWZ1DlLnqU&mute=1" frameborder="0" allowfullscreen></iframe>
+                <div id="player"></div>
+                <!-- <iframe src="https://www.youtube.com/embed/hfWZ1DlLnqU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=hfWZ1DlLnqU&mute=1" frameborder="0" allowfullscreen></iframe> -->
 
                 <h1>
                     <p>
@@ -291,8 +321,8 @@
                     <img src="img/pic01.png" style="width:100%;">
                 </a> -->
                 <div class="video-box" name="playCover" >
-                    <div class="yt_box" title="동영상 보기"></div>
-                  </div>
+                    <div class="yt_box" title="동영상 보기" id="player2"></div>
+                </div>
             </div>
         </div>
     </div>
